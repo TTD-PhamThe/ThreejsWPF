@@ -1,0 +1,42 @@
+﻿{
+  "metadata": {
+    "version": 4.5,
+    "type": "Object",
+    "generator": "Manual JSON Generator"
+  },
+  "geometries": [
+    {
+      "uuid": "B4A8A6A8-A282-4217-A54A-F11B78B3E42F",
+      "type": "CylinderGeometry",
+      "radiusTop": 1,
+      "radiusBottom": 1,
+      "height": 2,
+      "radialSegments": 32,
+      "heightSegments": 1,
+      "openEnded": false
+    }
+  ],
+  "materials": [
+    {
+      "uuid": "A8F5E4E8-8D2A-4C6F-95C4-24A6E8A5E1A9",
+      "type": "MeshStandardMaterial",
+      "color": 4286945,
+      "roughness": 0.5,
+      "metalness": 0.1
+    }
+  ],
+  "object": {
+    "uuid": "F5B8D9E0-3C7A-4B1E-8F6D-9A2C4E0B7F1D",
+    "type": "Scene",
+    "children": [
+      {
+        "uuid": "C1D3E5F7-6B8A-4D2C-A9E0-F1G2H3I4J5K6",
+        "type": "Mesh",
+        "name": "Cylinder",
+        "geometry": "B4A8A6A8-A282-4217-A54A-F11B78B3E42F",
+        "material": "A8F5E4E8-8D2A-4C6F-95C4-24A6E8A5E1A9",
+        "matrix": [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]
+      }
+    ]
+  }
+}
