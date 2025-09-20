@@ -21,7 +21,7 @@ public class RootObject
 /// </summary>
 public class Metadata
 {
-    const double version = 4.5f;
+    const double version = 4.5;
     const string type = "Object";
     const string generator = "By TTD deveploper";
 }
@@ -46,7 +46,7 @@ public class Child
     public string name { get; set; }
     public string geometry { get; set; }
     public string material { get; set; }
-    public int[] matrix { get; set; }
+    public double[] matrix { get; set; }
 }
 
 /// <summary>

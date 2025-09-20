@@ -16,7 +16,7 @@
 
         <!--Controller-->
         <StackPanel>
-            <Button Content="🔄️" Click="Button_Click" />
+            <Button Height="50" Content="🔄️" Click="ButtonReload_Click" />
         </StackPanel>
         
         <!-- Viewer -->

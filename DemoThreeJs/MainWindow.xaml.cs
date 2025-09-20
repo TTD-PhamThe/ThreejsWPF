@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using ThreejsJsonObject;
 using ThreejsJsonObject.Creator;
+using ThreejsJsonObject.Models;
 
 namespace DemoThreeJs
 {
@@ -43,21 +44,40 @@ namespace DemoThreeJs
 
         private async Task LoadJsonObject()
         {
-            //create json object
-            var typeBox = BoxCreator.GenerateType(1, 1, 10);
+            //create geometries
+            var geometries = new List<ThreejsJsonObject.Models.Geometry>();
+            var typeBox = PileCreator.GeneratePileGeometry(400, 400, 20000);
+            geometries.Add(typeBox);
+            var typeBearing = BearingCreator.GenerateBearingGeometry(400, 400);
+            geometries.Add(typeBearing);
+            var typeBeam = BeamCreator.GenerateBeamGeometry(400, 400, 10000);
+            geometries.Add(typeBeam);
+
+            //create materials
             var mat = MaterialCreator.Generate("Red", "0xff0000");
-            var instance = BoxCreator.GenerateInstance("Pile", typeBox, mat, new System.Numerics.Vector3(0, 0, 0));
-            var scene = SceneCreator.Generate([instance]);
-            var root = RootObjectCreator.Generate([typeBox], [mat], scene);
+
+            //create objects
+            var instances = new List<Child>();
+            for (int i = 0; i < 5; i++)
+            {
+                instances.Add(PileCreator.GeneratePileObject($"Pile-{i + 1}", typeBox, mat, new System.Numerics.Vector3(0, i * 2000, 0)));
+                instances.Add(BearingCreator.GenerateBearingObject($"Bearing-{i + 1}", typeBearing, mat, new System.Numerics.Vector3(0, i * 2000, 0)));
+            }
+            instances.Add(BeamCreator.GenerateBeamObject($"Beam", typeBeam, mat, new System.Numerics.Vector3(0, 0, 0)));
+
+            //create scene
+            var scene = SceneCreator.Generate(instances.ToArray());
+            var root = RootObjectCreator.Generate(geometries.ToArray(), [mat], scene);
             var jsonString = JsonConvert.SerializeObject(root);
 
+            //send to web viewer
             string script = $"window.loadObjectFromJsonString(`{jsonString}`);";
             await Webviewer.CoreWebView2.ExecuteScriptAsync(script);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonReload_Click(object sender, RoutedEventArgs e)
         {
-            _ = LoadJsonObject();
+            _ = ReloadViewAsync();
         }
     }
 }
