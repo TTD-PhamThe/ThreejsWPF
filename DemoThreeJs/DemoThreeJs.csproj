@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="WebViewer\BufferGeometry.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="WebViewer\cylinder.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
