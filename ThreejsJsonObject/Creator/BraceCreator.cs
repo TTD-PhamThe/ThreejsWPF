@@ -97,14 +97,12 @@ public class BraceCreator
         };
     }
 
-    public static Child GenerateLBraceObject(string name, BufferGeometry geometry, Material material, Vector3 pstart, Vector3 pend, Vector3 referenceY)
+    public static Child GenerateLBraceObject(string name, BufferGeometry geometry, Material material, Vector3 pstart, Vector3 pend, Vector3 yLocal)
     {
-        var zLocal = pend - pstart;
-        var pcenter = zLocal / 2;
-        var xLocal = Vector3.Cross(referenceY, zLocal);
-        //Matrix4x4 matrix = CoordinateUtils.GetTransformMatrix(Vector3.Zero, Vector3.UnitX, Vector3.UnitY, pcenter, xLocal, referenceY);
-        Matrix4x4 matrix = CoordinateUtils.GetTransformGlobalToLocal(pcenter, xLocal, referenceY);
-        //matrix = Matrix4x4.Identity;
+        var zLocal = pstart - pend;
+        var pcenter = (pstart + pend) / 2;
+        var xLocal = Vector3.Cross(yLocal, zLocal);
+        Matrix4x4 matrix = CoordinateUtils.GetTransformGlobalToLocal(pcenter, xLocal, yLocal);
         return new Child()
         {
             uuid = Guid.NewGuid().ToString(),
