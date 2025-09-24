@@ -1,13 +1,14 @@
-﻿using ThreejsJsonObject.Models;
-using System.Numerics;
+﻿using System.Numerics;
+using ThreejsJsonObject.Models.ThreejsObject;
+using ThreejsJsonObject.Models.Geometry.Solid;
 
 namespace ThreejsJsonObject.Creator;
 
 public class PileCreator
 {
-    public static BoxGeometry GeneratePileGeometry(double width, double height, double length)
+    public static BoxGemetry GeneratePileGeometry(double width, double height, double length)
     {
-        return new BoxGeometry()
+        return new BoxGemetry()
         {
             uuid = Guid.NewGuid().ToString(),
             width = (double)width,
@@ -16,7 +17,7 @@ public class PileCreator
         };
     }
 
-    public static Child GeneratePileObject(string name, BoxGeometry geometry, Material material, Vector3 position)
+    public static Child GeneratePileObject(string name, BoxGemetry geometry, Material material, Vector3 position)
     {
         Matrix4x4 matrix = Matrix4x4.CreateTranslation(position.X, position.Y, (float)(position.Z - geometry.depth / 2));
         return new Child()

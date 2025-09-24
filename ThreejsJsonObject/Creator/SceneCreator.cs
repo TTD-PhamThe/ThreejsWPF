@@ -1,4 +1,4 @@
-﻿using ThreejsJsonObject.Models;
+﻿using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 

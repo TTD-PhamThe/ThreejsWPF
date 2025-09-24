@@ -2,7 +2,8 @@
 using Newtonsoft.Json;
 using System.Windows;
 using ThreejsJsonObject.Creator;
-using ThreejsJsonObject.Models;
+using ThreejsJsonObject.Models.Geometry;
+using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace DemoThreeJs;
 
@@ -41,7 +42,7 @@ public partial class MainWindow : Window
         var geometryBearing = BearingCreator.GenerateBearingGeometry(400, 400);
         var geometryBeam = BeamCreator.GenerateBeamGeometry(400, 400, 10000);
         var geometryBrace = BraceCreator.GenerateLBraceGeometry(4000, 200, 40);
-        Geometry[] geometries = [geometryPile, geometryBearing, geometryBeam, geometryBrace];
+        BaseGeometry[] geometries = [geometryPile, geometryBearing, geometryBeam, geometryBrace];
 
         //create materials
         var matBearing = MaterialCreator.Generate("Red", "0x0000ff");
@@ -56,11 +57,11 @@ public partial class MainWindow : Window
         {
             instances.Add(PileCreator.GeneratePileObject($"Pile-{i + 1}", geometryPile, matPile, new System.Numerics.Vector3(0, i * spacing, 0)));
             instances.Add(BearingCreator.GenerateBearingObject($"Bearing-{i + 1}", geometryBearing, matBearing, new System.Numerics.Vector3(0, i * spacing, 0)));
-            instances.Add(BraceCreator.GenerateLBraceObject($"Beam", geometryBrace, matBrace,
+            instances.Add(BraceCreator.GenerateLBraceObject($"Brace-{i + 1}", geometryBrace, matBrace,
                 new System.Numerics.Vector3(200, i * spacing, 0),
                 new System.Numerics.Vector3(200, (i + 1) * spacing, -spacing),
                 new System.Numerics.Vector3(1, 0, 0)));
-            instances.Add(BraceCreator.GenerateLBraceObject($"Beam", geometryBrace, matBrace,
+            instances.Add(BraceCreator.GenerateLBraceObject($"Brace-{i + 1}(1)", geometryBrace, matBrace,
                 new System.Numerics.Vector3(200, (i + 1) * spacing, 0),
                 new System.Numerics.Vector3(200, i * spacing, -spacing),
                 new System.Numerics.Vector3(1, 0, 0)));

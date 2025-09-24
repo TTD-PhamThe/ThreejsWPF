@@ -1,13 +1,13 @@
 ﻿using System.Numerics;
-using ThreejsJsonObject.Models;
+using ThreejsJsonObject.Models.Geometry.Solid;
+using ThreejsJsonObject.Models.ThreejsObject;
 using ThreejsJsonObject.Utils;
-using static ThreejsJsonObject.Models.BufferGeometry;
 
 namespace ThreejsJsonObject.Creator;
 
 public class BraceCreator
 {
-    public static BufferGeometry GenerateLBraceGeometry(float length, float width, float thickness)
+    public static Models.Geometry.Solid.BufferGeometry GenerateLBraceGeometry(float length, float width, float thickness)
     {
         var positions = new List<float>();
         var normals = new List<float>();
@@ -82,7 +82,7 @@ public class BraceCreator
             uvs.AddRange([0f, 0f, 1f, 0f, 1f, 1f]); // UV đơn giản
         }
 
-        return new BufferGeometry
+        return new Models.Geometry.Solid.BufferGeometry
         {
             uuid = Guid.NewGuid().ToString(),
             data = new Data
@@ -97,7 +97,7 @@ public class BraceCreator
         };
     }
 
-    public static Child GenerateLBraceObject(string name, BufferGeometry geometry, Material material, Vector3 pstart, Vector3 pend, Vector3 yLocal)
+    public static Child GenerateLBraceObject(string name, Models.Geometry.Solid.BufferGeometry geometry, Material material, Vector3 pstart, Vector3 pend, Vector3 yLocal)
     {
         var zLocal = pstart - pend;
         var pcenter = (pstart + pend) / 2;

@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
-using ThreejsJsonObject.Models;
+using ThreejsJsonObject.Models.Geometry.Solid;
+using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 

@@ -1,10 +1,11 @@
-﻿using ThreejsJsonObject.Models;
+﻿using ThreejsJsonObject.Models.Geometry;
+using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 
 public class RootObjectCreator
 {
-    public static RootObject Generate(Geometry[] types, Material[] materials, Scene rootObject)
+    public static RootObject Generate(BaseGeometry[] types, Material[] materials, Scene rootObject)
     {
         return new RootObject()
         {

@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using ThreejsJsonObject.Models;
+﻿using System.Numerics;
+using ThreejsJsonObject.Models.Geometry.Solid;
+using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 
 public class BeamCreator
 {
 
-    public static BoxGeometry GenerateBeamGeometry(double width, double height, double length)
+    public static BoxGemetry GenerateBeamGeometry(double width, double height, double length)
     {
-        return new BoxGeometry()
+        return new BoxGemetry()
         {
             uuid = Guid.NewGuid().ToString(),
             width = (double)width,
@@ -22,7 +18,7 @@ public class BeamCreator
         };
     }
 
-    public static Child GenerateBeamObject(string name, BoxGeometry geometry, Material material, Vector3 position)
+    public static Child GenerateBeamObject(string name, BoxGemetry geometry, Material material, Vector3 position)
     {
         Matrix4x4 matrix = Matrix4x4.CreateTranslation(position.X, (float)(position.Y + geometry.height / 2), (float)(position.Z - geometry.depth / 2));
         return new Child()

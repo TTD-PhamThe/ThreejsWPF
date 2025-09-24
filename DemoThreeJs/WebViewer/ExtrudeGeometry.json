@@ -1,0 +1,83 @@
+﻿{
+  "metadata": {
+    "version": 4.5,
+    "type": "Object",
+    "generator": "Manual JSON Generator"
+  },
+  "materials": [
+    {
+      "uuid": "9934B805-4B80-4D4F-84A5-045B83E5497A",
+      "type": "MeshStandardMaterial",
+      "color": 16750371,
+      "roughness": 0.5,
+      "metalness": 0.2
+    }
+  ],
+  "geometries": [
+    {
+      "uuid": "D92052C7-9573-41A6-9861-BE74EE6CAC99",
+      "type": "ExtrudeGeometry",
+      "shapes": [ "CC3B528C-8940-411B-81A7-25742C62161F" ],
+      "options": {
+        "depth": 0.2,
+        "bevelEnabled": false
+      }
+    }
+  ],
+  "shapes": [
+    {
+      "type": "Shape",
+      "curves": [
+        {
+          "type": "LineCurve",
+          "v1": [ -0.5, 0.2 ],
+          "v2": [ 0.5, 0.2 ]
+        },
+        {
+          "type": "EllipseCurve",
+          "aX": 0.5,
+          "aY": 0,
+          "xRadius": 0.2,
+          "yRadius": 0.2,
+          "aStartAngle": 1.5707963267948966,
+          "aEndAngle": -1.5707963267948966,
+          "aClockwise": true,
+          "aRotation": 0
+        },
+        {
+          "type": "LineCurve",
+          "v1": [ 0.5, -0.2 ],
+          "v2": [ -0.5, -0.2 ]
+        },
+        {
+          "type": "EllipseCurve",
+          "aX": -0.5,
+          "aY": 0,
+          "xRadius": 0.2,
+          "yRadius": 0.2,
+          "aStartAngle": -1.5707963267948966,
+          "aEndAngle": 1.5707963267948966,
+          "aClockwise": true,
+          "aRotation": 0
+        }
+      ],
+      "currentPoint": [ 0, 0 ],
+      "uuid": "CC3B528C-8940-411B-81A7-25742C62161F",
+      "holes": []
+    }
+  ],
+  "object": {
+    "uuid": "mainscene",
+    "type": "Scene",
+    "children": [
+      {
+        "uuid": "C1D3E5F7-6B8A-4D2C-A9E0-F1G2H3I4J5K6",
+        "type": "Mesh",
+        "name": "ExtrudedCubeWithBevel",
+        "geometry": "D92052C7-9573-41A6-9861-BE74EE6CAC99",
+        "material": "9934B805-4B80-4D4F-84A5-045B83E5497A",
+        "matrix": [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]
+      }
+    ]
+  }
+}
