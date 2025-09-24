@@ -5,13 +5,14 @@ namespace ThreejsJsonObject.Creator;
 
 public class RootObjectCreator
 {
-    public static RootObject Generate(BaseGeometry[] types, Material[] materials, Scene rootObject)
+    public static RootObject Generate(BaseGeometry[] geometries, Shape[] shapes, Material[] materials, Scene scene)
     {
         return new RootObject()
         {
-            geometries = types,
+            geometries = geometries,
+            shapes = shapes,
             materials = materials,
-            Scene = rootObject
+            Scene = scene
         };
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
+using System.Numerics;
 using System.Windows;
 using ThreejsJsonObject.Creator;
 using ThreejsJsonObject.Models.Geometry;
@@ -37,12 +38,14 @@ public partial class MainWindow : Window
     {
         var spacing = 2000;
 
+        //creator
+        var pileCreator = new PileCreator(400, 400, 20000);
+        var bearingCreator = new BearingCreator(400, 400);
+        var beamCreator = new BeamCreator(400, 400, 10000);
+        var braceCreator = new BraceExtrudeCreator(200, 400, 40, 3000);
+
         //create geometries
-        var geometryPile = PileCreator.GeneratePileGeometry(400, 400, 20000);
-        var geometryBearing = BearingCreator.GenerateBearingGeometry(400, 400);
-        var geometryBeam = BeamCreator.GenerateBeamGeometry(400, 400, 10000);
-        var geometryBrace = BraceCreator.GenerateLBraceGeometry(4000, 200, 40);
-        BaseGeometry[] geometries = [geometryPile, geometryBearing, geometryBeam, geometryBrace];
+        BaseGeometry[] geometries = [pileCreator.Geometry, bearingCreator.Geometry, beamCreator.Geometry, braceCreator.Geometry];
 
         //create materials
         var matBearing = MaterialCreator.Generate("Red", "0x0000ff");
@@ -55,22 +58,21 @@ public partial class MainWindow : Window
         var instances = new List<Child>();
         for (int i = 0; i < 5; i++)
         {
-            instances.Add(PileCreator.GeneratePileObject($"Pile-{i + 1}", geometryPile, matPile, new System.Numerics.Vector3(0, i * spacing, 0)));
-            instances.Add(BearingCreator.GenerateBearingObject($"Bearing-{i + 1}", geometryBearing, matBearing, new System.Numerics.Vector3(0, i * spacing, 0)));
-            instances.Add(BraceCreator.GenerateLBraceObject($"Brace-{i + 1}", geometryBrace, matBrace,
-                new System.Numerics.Vector3(200, i * spacing, 0),
-                new System.Numerics.Vector3(200, (i + 1) * spacing, -spacing),
-                new System.Numerics.Vector3(1, 0, 0)));
-            instances.Add(BraceCreator.GenerateLBraceObject($"Brace-{i + 1}(1)", geometryBrace, matBrace,
-                new System.Numerics.Vector3(200, (i + 1) * spacing, 0),
-                new System.Numerics.Vector3(200, i * spacing, -spacing),
-                new System.Numerics.Vector3(1, 0, 0)));
+            var p1Brace = new Vector3(200, i * spacing, 0);
+            var p2Brace = new Vector3(200, (i + 1) * spacing, -spacing);
+            var dirBrace = p2Brace - p1Brace;
+            var yBrace = Vector3.UnitX;
+            var xBrace = Vector3.Cross(dirBrace, yBrace);
+
+            instances.Add(pileCreator.GenerateObject($"Pile-{i + 1}", matPile, new Vector3(0, i * spacing, 0), Vector3.UnitX, Vector3.UnitY));
+            instances.Add(bearingCreator.GenerateObject($"Bearing-{i + 1}", matBearing, new Vector3(0, i * spacing, 0), Vector3.UnitX, Vector3.UnitY));
+            instances.Add(braceCreator.GenerateObject($"Brace-{i + 1}", matBrace, p1Brace, xBrace, yBrace));
         }
-        instances.Add(BeamCreator.GenerateBeamObject($"Beam", geometryBeam, matBeam, new System.Numerics.Vector3(0, 0, 0)));
+        instances.Add(beamCreator.GenerateObject($"Beam", matBeam, new Vector3(0, 0, 0), Vector3.UnitX, Vector3.UnitY));
 
         //create scene
         var scene = SceneCreator.Generate(instances.ToArray());
-        var root = RootObjectCreator.Generate(geometries, mats, scene);
+        var root = RootObjectCreator.Generate(geometries, [braceCreator.Shape], mats, scene);
         var jsonString = JsonConvert.SerializeObject(root, Formatting.Indented);
 
         //send to web viewer

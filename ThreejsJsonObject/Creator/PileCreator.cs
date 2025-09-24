@@ -1,39 +1,35 @@
 ﻿using System.Numerics;
 using ThreejsJsonObject.Models.ThreejsObject;
 using ThreejsJsonObject.Models.Geometry.Solid;
+using ThreejsJsonObject.Creator.Base;
 
 namespace ThreejsJsonObject.Creator;
 
-public class PileCreator
+public class PileCreator : BaseObjectCreator<BoxGemetry>
 {
-    public static BoxGemetry GeneratePileGeometry(double width, double height, double length)
+    private double _width;
+    private double _height;
+    private double _length;
+    public PileCreator(double width, double height, double length)
+    {
+        _width = width;
+        _height = height;
+        _length = length;
+    }
+
+    protected override BoxGemetry GenerateGeomety()
     {
         return new BoxGemetry()
         {
             uuid = Guid.NewGuid().ToString(),
-            width = (double)width,
-            height = (double)height,
-            depth = (double)length
+            width = _width,
+            height = _height,
+            depth = _length
         };
     }
 
-    public static Child GeneratePileObject(string name, BoxGemetry geometry, Material material, Vector3 position)
+    protected override Matrix4x4 PreTransformToLocation()
     {
-        Matrix4x4 matrix = Matrix4x4.CreateTranslation(position.X, position.Y, (float)(position.Z - geometry.depth / 2));
-        return new Child()
-        {
-            uuid = Guid.NewGuid().ToString(),
-            type = "Mesh",
-            name = name,
-            geometry = geometry.uuid,
-            material = material.uuid,
-            matrix =
-            [
-                matrix.M11, matrix.M12, matrix.M13, matrix.M14,
-                matrix.M21, matrix.M22, matrix.M23, matrix.M24,
-                matrix.M31, matrix.M32, matrix.M33, matrix.M34,
-                matrix.M41, matrix.M42, matrix.M43, matrix.M44,
-            ]
-        };
+        return Matrix4x4.CreateTranslation(0, 0, -(float)Geometry.depth / 2);
     }
 }

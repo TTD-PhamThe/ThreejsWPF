@@ -1,31 +1,40 @@
 ﻿using System.Numerics;
+using ThreejsJsonObject.Creator.Base;
 using ThreejsJsonObject.Models.Geometry.Solid;
-using ThreejsJsonObject.Models.ThreejsObject;
-using ThreejsJsonObject.Utils;
 
 namespace ThreejsJsonObject.Creator;
 
-public class BraceCreator
+public class BraceBufferCreator : BaseObjectCreator<BufferGeometry>
 {
-    public static Models.Geometry.Solid.BufferGeometry GenerateLBraceGeometry(float length, float width, float thickness)
+    private double _length;
+    private double _width;
+    private double _thickness;
+    public BraceBufferCreator(double length, double width, double thickness)
     {
-        var positions = new List<float>();
-        var normals = new List<float>();
-        var uvs = new List<float>();
+        _length = length;
+        _width = width;
+        _thickness = thickness;
+    }
+
+    protected override BufferGeometry GenerateGeomety()
+    {
+        var positions = new List<double>();
+        var normals = new List<double>();
+        var uvs = new List<double>();
 
         // Định nghĩa 6 đỉnh của mặt cắt chữ L
         var p0 = (0f, 0f);
-        var p1 = (width, 0f);
-        var p2 = (width, thickness);
-        var p3 = (thickness, thickness);
-        var p4 = (thickness, width);
-        var p5 = (0f, width);
+        var p1 = (_width, 0f);
+        var p2 = (_width, _thickness);
+        var p3 = (_thickness, _thickness);
+        var p4 = (_thickness, _width);
+        var p5 = (0f, _width);
 
         var shapeVertices = new[] { p0, p1, p2, p3, p4, p5 };
 
         // Z coordinates for front and back faces
-        float z_front = length / 2.0f;
-        float z_back = -length / 2.0f;
+        double z_front = _length / 2.0f;
+        double z_back = -_length / 2.0f;
 
         // --- 1. TẠO MẶT TRƯỚC VÀ MẶT SAU ---
         // Mặt trước (2 tam giác)
@@ -48,7 +57,7 @@ public class BraceCreator
         AddQuad(v_front[5], v_back[5], v_back[0], v_front[0], [-1f, 0f, 0f]); // Cạnh trái
 
 
-        void AddFace((float, float)[] vertices, float z, float[] normal, bool reverse)
+        void AddFace((double, double)[] vertices, double z, double[] normal, bool reverse)
         {
             var v1 = (vertices[0].Item1, vertices[0].Item2, z);
             var v2 = (vertices[1].Item1, vertices[1].Item2, z);
@@ -67,13 +76,13 @@ public class BraceCreator
             }
         }
 
-        void AddQuad((float, float, float) v1, (float, float, float) v2, (float, float, float) v3, (float, float, float) v4, float[] normal)
+        void AddQuad((double, double, double) v1, (double, double, double) v2, (double, double, double) v3, (double, double, double) v4, double[] normal)
         {
             AddTriangle(v1, v2, v3, normal);
             AddTriangle(v1, v3, v4, normal);
         }
 
-        void AddTriangle((float, float, float) v1, (float, float, float) v2, (float, float, float) v3, float[] normal)
+        void AddTriangle((double, double, double) v1, (double, double, double) v2, (double, double, double) v3, double[] normal)
         {
             positions.AddRange([v1.Item1, v1.Item2, v1.Item3]);
             positions.AddRange([v2.Item1, v2.Item2, v2.Item3]);
@@ -97,26 +106,8 @@ public class BraceCreator
         };
     }
 
-    public static Child GenerateLBraceObject(string name, Models.Geometry.Solid.BufferGeometry geometry, Material material, Vector3 pstart, Vector3 pend, Vector3 yLocal)
+    protected override Matrix4x4 PreTransformToLocation()
     {
-        var zLocal = pstart - pend;
-        var pcenter = (pstart + pend) / 2;
-        var xLocal = Vector3.Cross(yLocal, zLocal);
-        Matrix4x4 matrix = CoordinateUtils.GetTransformGlobalToLocal(pcenter, xLocal, yLocal);
-        return new Child()
-        {
-            uuid = Guid.NewGuid().ToString(),
-            type = "Mesh",
-            name = name,
-            geometry = geometry.uuid,
-            material = material.uuid,
-            matrix =
-            [
-                matrix.M11, matrix.M12, matrix.M13, matrix.M14,
-                matrix.M21, matrix.M22, matrix.M23, matrix.M24,
-                matrix.M31, matrix.M32, matrix.M33, matrix.M34,
-                matrix.M41, matrix.M42, matrix.M43, matrix.M44,
-            ]
-        };
+        return Matrix4x4.Identity;
     }
 }

@@ -6,7 +6,7 @@ public class Child : BaseObject
     public string geometry { get; set; }
     public string material { get; set; }
     public double[] matrix { get; set; }
-    public int[] up => [0, 0, 1];
+    public int[] up { get; set; } = [0, 0, 1];
 
     public const string MESH_TYPE = "Mesh";
 }

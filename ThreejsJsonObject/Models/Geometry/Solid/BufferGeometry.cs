@@ -23,7 +23,7 @@ public class BaseAttributes
 {
     public int itemSize { get; set; }
     public string type { get; set; } = "Float32Array";
-    public float[] array { get; set; }
+    public double[] array { get; set; }
     public bool normalized { get; set; }
 }
 
