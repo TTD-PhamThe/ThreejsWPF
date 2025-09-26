@@ -5,7 +5,7 @@ using Attribute = ThreejsJsonObject.Models.Geometry.Solid.BufferData.Attribute;
 
 namespace ThreejsJsonObject.Creator;
 
-public class DimCreator : BaseLineCreator<BufferLineGeometry>
+public class LineCreator : BaseLineCreator<BufferLineGeometry>
 {
     protected override BufferLineGeometry GenerateGeometry()
     {
@@ -16,7 +16,7 @@ public class DimCreator : BaseLineCreator<BufferLineGeometry>
             {
                 attributes = new LineAttributes
                 {
-                    position = new Attribute { itemSize = 3, array = [2000, 0, 2000, 0, 2000, 0] }
+                    position = new Attribute { itemSize = 3, array = [2000, 0, 2000, 0, 2000, 2000, 2000, 2000, 2000] }
                 }
             }
         };

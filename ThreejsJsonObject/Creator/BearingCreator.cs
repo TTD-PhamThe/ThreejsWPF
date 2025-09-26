@@ -30,8 +30,9 @@ public class BearingCreator : BaseMeshCreator<CylinderGeometry>
 
     protected override Matrix4x4 PreTransformToLocation()
     {
-        Matrix4x4 matrixRotateX90 = Matrix4x4.CreateRotationX((float)Math.PI / 2);
-        Matrix4x4 matrixRotateY45 = Matrix4x4.CreateRotationZ((float)Math.PI / 4);
-        return matrixRotateX90 * matrixRotateY45;
+        var matrixRotateX90 = Matrix4x4.CreateRotationX((float)Math.PI / 2);
+        var matrixRotateY45 = Matrix4x4.CreateRotationZ((float)Math.PI / 4);
+        var matrixMove = Matrix4x4.CreateTranslation(0, 0, (float)_heightBearing / 2);
+        return matrixRotateX90 * matrixRotateY45 * matrixMove;
     }
 }

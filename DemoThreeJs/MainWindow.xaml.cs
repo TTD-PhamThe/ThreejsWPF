@@ -82,7 +82,7 @@ public partial class MainWindow : Window
 
         var matDim = MaterialCreator.GenerateLineMaterial("Dim111", "16711680");
         mats = mats.Append(matDim).ToArray();
-        var dimcreator = new DimCreator();
+        var dimcreator = new LineCreator();
         geometries = geometries.Append(dimcreator.Geometry).ToArray();
         var dimgeo = dimcreator.GenerateObject("dim", matDim);
         instances.Add(dimgeo);
