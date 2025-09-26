@@ -1,7 +1,6 @@
 ﻿using ThreejsJsonObject.Models.Geometry;
-using ThreejsJsonObject.Models.Geometry.Curve;
 
-namespace ThreejsJsonObject.Models.ThreejsObject;
+namespace ThreejsJsonObject.Models.Shape;
 
 public class Shape : BaseObject
 {
@@ -9,11 +8,4 @@ public class Shape : BaseObject
     public double[] currentPoint { get; set; } = [0, 0];
     public BaseCurve[] curves { get; set; } = [];
     public Hole[] holes { get; set; } = [];
-}
-
-public class Hole : BaseObject
-{
-    public override string type { get; set; } = "Path";
-    public double[] currentPoint { get; set; }
-    public BaseCurve[] curves { get; set; } = [];
 }

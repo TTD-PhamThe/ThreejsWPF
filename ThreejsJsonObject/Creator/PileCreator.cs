@@ -5,7 +5,7 @@ using ThreejsJsonObject.Creator.Base;
 
 namespace ThreejsJsonObject.Creator;
 
-public class PileCreator : BaseObjectCreator<BoxGemetry>
+public class PileCreator : BaseMeshCreator<BoxGemetry>
 {
     private double _width;
     private double _height;
@@ -17,7 +17,7 @@ public class PileCreator : BaseObjectCreator<BoxGemetry>
         _length = length;
     }
 
-    protected override BoxGemetry GenerateGeomety()
+    protected override BoxGemetry GenerateGeometry()
     {
         return new BoxGemetry()
         {

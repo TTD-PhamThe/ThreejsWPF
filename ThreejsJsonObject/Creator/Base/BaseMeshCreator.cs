@@ -1,11 +1,13 @@
 ﻿using System.Numerics;
 using ThreejsJsonObject.Models.Geometry;
+using ThreejsJsonObject.Models.Material;
+using ThreejsJsonObject.Models.Object;
 using ThreejsJsonObject.Models.ThreejsObject;
 using ThreejsJsonObject.Utils;
 
 namespace ThreejsJsonObject.Creator.Base;
 
-public abstract class BaseObjectCreator<TGeometry> where TGeometry : BaseGeometry
+public abstract class BaseMeshCreator<TGeometry> where TGeometry : BaseGeometry
 {
     private TGeometry _geometry;
     public TGeometry Geometry
@@ -14,24 +16,23 @@ public abstract class BaseObjectCreator<TGeometry> where TGeometry : BaseGeometr
         {
             if (_geometry == null)
             {
-                _geometry = GenerateGeomety();
+                _geometry = GenerateGeometry();
             }
             return _geometry;
         }
     }
 
-    protected abstract TGeometry GenerateGeomety();
+    protected abstract TGeometry GenerateGeometry();
     protected abstract Matrix4x4 PreTransformToLocation();
 
-    public Child GenerateObject(string name, Material material, Vector3 location, Vector3 xLocal, Vector3 yLocal)
+    public virtual MeshChild GenerateObject(string name, BaseMaterial material, Vector3 location, Vector3 xLocal, Vector3 yLocal)
     {
         var prePlace = PreTransformToLocation();
         var matrixToLocal = CoordinateUtils.GetTransformGlobalToLocal(location, xLocal, yLocal);
         Matrix4x4 matrix = prePlace * matrixToLocal;
-        return new Child()
+        return new MeshChild()
         {
             uuid = Guid.NewGuid().ToString(),
-            type = "Mesh",
             name = name,
             geometry = Geometry.uuid,
             material = material.uuid,

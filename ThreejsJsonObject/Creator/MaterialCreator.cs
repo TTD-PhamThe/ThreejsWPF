@@ -1,18 +1,27 @@
-﻿using ThreejsJsonObject.Models.ThreejsObject;
+﻿using ThreejsJsonObject.Models.Material;
+using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 
 public class MaterialCreator
 {
-    public static Material Generate(string name, string color)
+    public static BaseMaterial GenerateMeshMaterial(string name, string color)
     {
-        return new Material()
+        return new MeshMaterial()
         {
             uuid = Guid.NewGuid().ToString(),
-            type = "MeshStandardMaterial",
             name = name,
-            color = color,
-            roughness = 0.5
+            color = color
+        };
+    }
+
+    public static BaseMaterial GenerateLineMaterial(string name, string color)
+    {
+        return new LineMaterial()
+        {
+            uuid = Guid.NewGuid().ToString(),
+            name = name,
+            color = color
         };
     }
 }

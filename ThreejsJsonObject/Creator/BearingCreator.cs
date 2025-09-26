@@ -5,7 +5,7 @@ using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 
-public class BearingCreator : BaseObjectCreator<CylinderGeometry>
+public class BearingCreator : BaseMeshCreator<CylinderGeometry>
 {
     private double _widthBearing;
     private double _heightBearing;
@@ -15,7 +15,7 @@ public class BearingCreator : BaseObjectCreator<CylinderGeometry>
         _heightBearing = heightBearing;
     }
 
-    protected override CylinderGeometry GenerateGeomety()
+    protected override CylinderGeometry GenerateGeometry()
     {
         return new CylinderGeometry()
         {

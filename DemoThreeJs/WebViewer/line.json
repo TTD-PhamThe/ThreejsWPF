@@ -1,0 +1,71 @@
+﻿{
+  "metadata": {
+    "version": 4.5,
+    "type": "Object",
+    "generator": "Manual JSON Generator"
+  },
+  "geometries": [
+    {
+      "uuid": "box-geometry-1",
+      "type": "BoxGeometry",
+      "width": 1,
+      "height": 1,
+      "depth": 1
+    },
+    {
+      "uuid": "line-geometry-1",
+      "type": "BufferGeometry",
+      "data": {
+        "attributes": {
+          "position": {
+            "itemSize": 3,
+            "type": "Float32Array",
+            "array": [
+              -2000,
+              0,
+              0,
+              0,
+              2000,
+              0
+            ],
+            "normalized": false
+          }
+        }
+      }
+    }
+  ],
+  "materials": [
+    {
+      "uuid": "cube-material-1",
+      "type": "MeshBasicMaterial",
+      "color": 65535,
+      "wireframe": false
+    },
+    {
+      "uuid": "line-material-1",
+      "type": "LineBasicMaterial",
+      "color": 16711680,
+      "linewidth": 1
+    }
+  ],
+  "object": {
+    "uuid": "scene-root",
+    "type": "Scene",
+    "children": [
+      {
+        "uuid": "cube-object-1",
+        "type": "Mesh",
+        "name": "MyCube",
+        "geometry": "box-geometry-1",
+        "material": "cube-material-1"
+      },
+      {
+        "uuid": "line-object-1",
+        "type": "Line",
+        "name": "MyLine",
+        "geometry": "line-geometry-1",
+        "material": "line-material-1"
+      }
+    ]
+  }
+}

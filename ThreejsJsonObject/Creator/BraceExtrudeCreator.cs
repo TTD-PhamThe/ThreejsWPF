@@ -4,10 +4,11 @@ using ThreejsJsonObject.Models.ThreejsObject;
 using ThreejsJsonObject.Utils;
 using ThreejsJsonObject.Models.Geometry.Curve;
 using ThreejsJsonObject.Creator.Base;
+using ThreejsJsonObject.Models.Shape;
 
 namespace ThreejsJsonObject.Creator;
 
-public class BraceExtrudeCreator : BaseObjectCreator<ExtrudeGeometry>
+public class BraceExtrudeCreator : BaseMeshCreator<ExtrudeGeometry>
 {
     private float _width;
     private float _height;
@@ -68,7 +69,7 @@ public class BraceExtrudeCreator : BaseObjectCreator<ExtrudeGeometry>
         return Matrix4x4.CreateTranslation(0, 0, -(float)Geometry.options.depth);
     }
 
-    protected override ExtrudeGeometry GenerateGeomety()
+    protected override ExtrudeGeometry GenerateGeometry()
     {
         return new ExtrudeGeometry()
         {

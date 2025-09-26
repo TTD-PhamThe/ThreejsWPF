@@ -4,6 +4,8 @@ using System.Numerics;
 using System.Windows;
 using ThreejsJsonObject.Creator;
 using ThreejsJsonObject.Models.Geometry;
+using ThreejsJsonObject.Models.Material;
+using ThreejsJsonObject.Models.Object;
 using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace DemoThreeJs;
@@ -48,14 +50,14 @@ public partial class MainWindow : Window
         BaseGeometry[] geometries = [pileCreator.Geometry, bearingCreator.Geometry, beamCreator.Geometry, braceCreator.Geometry];
 
         //create materials
-        var matBearing = MaterialCreator.Generate("Red", "0x0000ff");
-        var matBeam = MaterialCreator.Generate("Blue", "0x00ff00");
-        var matPile = MaterialCreator.Generate("Yellow", "0xffff00");
-        var matBrace = MaterialCreator.Generate("Orange", "0xff3300");
-        Material[] mats = [matBearing, matBeam, matPile, matBrace];
+        var matBearing = MaterialCreator.GenerateMeshMaterial("Red", "0x0000ff");
+        var matBeam = MaterialCreator.GenerateMeshMaterial("Blue", "0x00ff00");
+        var matPile = MaterialCreator.GenerateMeshMaterial("Yellow", "0xffff00");
+        var matBrace = MaterialCreator.GenerateMeshMaterial("Orange", "0xff3300");
+        BaseMaterial[] mats = [matBearing, matBeam, matPile, matBrace];
 
         //create objects
-        var instances = new List<Child>();
+        var instances = new List<BaseChild>();
         for (int i = 0; i < 5; i++)
         {
             var p1Brace = new Vector3(200, i * spacing, 0);
@@ -69,6 +71,13 @@ public partial class MainWindow : Window
             instances.Add(braceCreator.GenerateObject($"Brace-{i + 1}", matBrace, p1Brace, xBrace, yBrace));
         }
         instances.Add(beamCreator.GenerateObject($"Beam", matBeam, new Vector3(0, 0, 0), Vector3.UnitX, Vector3.UnitY));
+
+        var matDim = MaterialCreator.GenerateLineMaterial("Dim111", "16711680");
+        mats = mats.Append(matDim).ToArray();
+        var dimcreator = new DimCreator();
+        geometries = geometries.Append(dimcreator.Geometry).ToArray();
+        var dimgeo = dimcreator.GenerateObject("dim", matDim);
+        instances.Add(dimgeo);
 
         //create scene
         var scene = SceneCreator.Generate(instances.ToArray());

@@ -95,7 +95,7 @@
         //Load json object
         window.loadObjectFromJsonString = function (jsonString) {
             if (!scene) {
-                alert("Three.js scene chưa được khởi tạo.");
+                console.log("Three.js scene chưa được khởi tạo.");
                 return;
             }
             try {
@@ -104,7 +104,8 @@
                 const loadedObject = loader.parse(jsonData);
                 scene.add(loadedObject);
             } catch (error) {
-                alert("Lỗi khi xử lý chuỗi JSON: ", error);
+                console.log("Loi doc file json", error);
+                alert(error);
             }
         }
     </script>

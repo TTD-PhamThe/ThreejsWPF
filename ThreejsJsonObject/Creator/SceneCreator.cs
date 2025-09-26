@@ -1,10 +1,11 @@
-﻿using ThreejsJsonObject.Models.ThreejsObject;
+﻿using ThreejsJsonObject.Models.Object;
+using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 
 public class SceneCreator
 {
-    public static Scene Generate(Child[] children)
+    public static Scene Generate(BaseChild[] children)
     {
         return new Scene()
         {

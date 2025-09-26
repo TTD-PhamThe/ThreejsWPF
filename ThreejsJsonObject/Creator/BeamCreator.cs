@@ -5,7 +5,7 @@ using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace ThreejsJsonObject.Creator;
 
-public class BeamCreator : BaseObjectCreator<BoxGemetry>
+public class BeamCreator : BaseMeshCreator<BoxGemetry>
 {
     private double _width;
     private double _height;
@@ -17,7 +17,7 @@ public class BeamCreator : BaseObjectCreator<BoxGemetry>
         _length = length;
     }
 
-    protected override BoxGemetry GenerateGeomety()
+    protected override BoxGemetry GenerateGeometry()
     {
         return new BoxGemetry()
         {

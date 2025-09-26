@@ -1,10 +1,11 @@
 ﻿using System.Numerics;
 using ThreejsJsonObject.Creator.Base;
 using ThreejsJsonObject.Models.Geometry.Solid;
+using ThreejsJsonObject.Models.Geometry.Solid.BufferData;
 
 namespace ThreejsJsonObject.Creator;
 
-public class BraceBufferCreator : BaseObjectCreator<BufferGeometry>
+public class BraceBufferCreator : BaseMeshCreator<BufferMeshGeometry>
 {
     private double _length;
     private double _width;
@@ -16,7 +17,7 @@ public class BraceBufferCreator : BaseObjectCreator<BufferGeometry>
         _thickness = thickness;
     }
 
-    protected override BufferGeometry GenerateGeomety()
+    protected override BufferMeshGeometry GenerateGeometry()
     {
         var positions = new List<double>();
         var normals = new List<double>();
@@ -91,16 +92,16 @@ public class BraceBufferCreator : BaseObjectCreator<BufferGeometry>
             uvs.AddRange([0f, 0f, 1f, 0f, 1f, 1f]); // UV đơn giản
         }
 
-        return new Models.Geometry.Solid.BufferGeometry
+        return new BufferMeshGeometry
         {
             uuid = Guid.NewGuid().ToString(),
-            data = new Data
+            data = new MeshData
             {
-                attributes = new Attributes
+                attributes = new MeshAttributes
                 {
-                    position = new Position { itemSize = 3, array = positions.ToArray() },
-                    normal = new Normal { itemSize = 3, array = normals.ToArray() },
-                    uv = new Uv { itemSize = 2, array = uvs.ToArray() }
+                    position = new Models.Geometry.Solid.BufferData.Attribute { itemSize = 3, array = positions.ToArray() },
+                    normal = new Models.Geometry.Solid.BufferData.Attribute { itemSize = 3, array = normals.ToArray() },
+                    uv = new Models.Geometry.Solid.BufferData.Attribute { itemSize = 2, array = uvs.ToArray() }
                 }
             }
         };
