@@ -91,17 +91,46 @@
 
         animate();
 
+        //Load font
+        window.loadFontFromJsonString = function (fontJsonString, fontUuid) {
+            // Đảm bảo loader được khởi tạo nếu nó không phải là biến toàn cục
+            if (!window.objectLoader) {
+                window.objectLoader = new THREE.ObjectLoader();
+            }
+            try {
+                const fontData = JSON.parse(fontJsonString);
+                // Chuẩn bị cấu trúc JSON tối thiểu để ObjectLoader nhận dạng và lưu trữ phông chữ
+                const fontRegistrationData = {
+                    fonts: [
+                        {
+                            uuid: fontUuid,
+                            type: 'Font',
+                            data: fontData // Dữ liệu phông chữ thực tế
+                        }
+                    ]
+                };
+                // Sử dụng parse để đăng ký font vào bộ nhớ cache nội bộ của loader
+                window.objectLoader.parse(fontRegistrationData);
+                console.log(`Đã đăng ký phông chữ thành công với UUID: ${fontUuid}`);
+            } catch (error) {
+                console.error("Lỗi khi đọc hoặc đăng ký dữ liệu phông chữ JSON:", error);
+                alert("Lỗi khi tải dữ liệu phông chữ: " + error.message);
+            }
+        }
 
         //Load json object
         window.loadObjectFromJsonString = function (jsonString) {
+            // Đảm bảo loader được khởi tạo nếu nó không phải là biến toàn cục
+            if (!window.objectLoader) {
+                window.objectLoader = new THREE.ObjectLoader();
+            }
             if (!scene) {
                 console.log("Three.js scene chưa được khởi tạo.");
                 return;
             }
             try {
                 const jsonData = JSON.parse(jsonString);
-                const loader = new THREE.ObjectLoader();
-                const loadedObject = loader.parse(jsonData);
+                const loadedObject = window.objectLoader.parse(jsonData);
                 scene.add(loadedObject);
             } catch (error) {
                 console.log("Loi doc file json", error);

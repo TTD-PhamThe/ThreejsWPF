@@ -1,0 +1,53 @@
+﻿{
+  "metadata": {
+    "version": 4.5,
+    "type": "Object",
+    "generator": "Three.js Custom Text Scene"
+  },
+  "geometries": [
+    {
+      "uuid": "text-geometry-1",
+      "type": "TextGeometry",
+      "text": "THREE.JS TEXT",
+      "parameters": {
+        "font": "my-font-uuid",
+        "size": 0.5,
+        "height": 0.15,
+        "curveSegments": 6,
+        "bevelEnabled": true,
+        "bevelThickness": 0.03,
+        "bevelSize": 0.02
+      }
+    }
+  ],
+  "materials": [
+    {
+      "uuid": "gold-material-1",
+      "type": "MeshStandardMaterial",
+      "color": 16750371,
+      "metalness": 0.9,
+      "roughness": 0.2
+    }
+  ],
+  "fonts": [
+    {
+      "uuid": "my-font-uuid",
+      "type": "Font",
+      "data": {}
+    }
+  ],
+  "object": {
+    "uuid": "scene-root-1",
+    "type": "Scene",
+    "children": [
+      {
+        "uuid": "text-mesh-1",
+        "type": "Mesh",
+        "name": "My3DTextObject",
+        "geometry": "text-geometry-1",
+        "material": "gold-material-1",
+        "position": [ -2.0, 0.5, 0 ]
+      }
+    ]
+  }
+}

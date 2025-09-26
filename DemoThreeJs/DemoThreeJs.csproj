@@ -24,6 +24,9 @@
     <None Update="WebViewer\cylinder.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="WebViewer\helvetiker_regular.typeface.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="WebViewer\viewer.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

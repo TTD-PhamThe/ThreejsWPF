@@ -6,7 +6,6 @@ using ThreejsJsonObject.Creator;
 using ThreejsJsonObject.Models.Geometry;
 using ThreejsJsonObject.Models.Material;
 using ThreejsJsonObject.Models.Object;
-using ThreejsJsonObject.Models.ThreejsObject;
 
 namespace DemoThreeJs;
 
@@ -22,9 +21,10 @@ public partial class MainWindow : Window
         Webviewer.NavigationCompleted += NavigationCompleted;
     }
 
-    private void NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+    private async void NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
     {
-        _ = LoadJsonObject();
+        //await LoadFont();
+        await LoadJsonObject();
     }
 
     private async Task ReloadViewAsync()
@@ -34,6 +34,14 @@ public partial class MainWindow : Window
         await Webviewer.EnsureCoreWebView2Async();
         await Webviewer.CoreWebView2.Profile.ClearBrowsingDataAsync();
         Webviewer.CoreWebView2.Navigate(url);
+    }
+
+    private async Task LoadFont()
+    {
+        var fontId = "helvetiker_regular_uuid";
+        var jsonString = System.IO.File.ReadAllText(@"WebViewer\helvetiker_regular.typeface.json");
+        string script = $"window.loadFontFromJsonString(`{jsonString},{fontId}`);";
+        await Webviewer.CoreWebView2.ExecuteScriptAsync(script);
     }
 
     private async Task LoadJsonObject()
